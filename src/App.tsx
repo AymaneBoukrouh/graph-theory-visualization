@@ -1,11 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const [gridX, setGridX] = useState<number>(0);
+  const [gridY, setGridY] = useState<number>(0);
+
+  useEffect (() => {
+    setGridX(10);
+    setGridY(10);
+  }, [])
+
   return (
     <div className="App">
-      <h1>App</h1>
+      <div className="grid">
+        {
+          Array.from(Array(gridX).keys()).map((x) => {
+            return <div className="grid-row">
+              {
+                Array.from(Array(gridY).keys()).map((y) => {
+                  return <div className="grid-cell"></div>
+                })
+              }
+            </div>
+          })
+        }
+      </div>
     </div>
   );
 }
