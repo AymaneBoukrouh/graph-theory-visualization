@@ -12,8 +12,6 @@
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid black;
-  height: 80%;
-  aspect-ratio: 1;
 }
 
 .grid-row {
@@ -26,6 +24,18 @@
 .grid-cell {
   width: 100%;
   height: 100%;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
-  border-right: 1px solid rgba(0, 0, 0, .1);
+  border-bottom: 1px solid rgba(0, 0, 0, .05);
+  border-right: 1px solid rgba(0, 0, 0, .05);
+  width: 35px;
+  height: 35px;
+}
+
+.cell-node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: gray;
+  border-radius: 50%;
 }
