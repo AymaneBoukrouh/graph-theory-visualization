@@ -4,7 +4,7 @@ import EditorPanel from './components/EditorPanel';
 import './App.css';
 
 const App = () => {
-  const [editorMode, setEditorMode] = useState<string>('line');
+  const [editorMode, setEditorMode] = useState<string>('node');
 
   return (
     <div className="App">

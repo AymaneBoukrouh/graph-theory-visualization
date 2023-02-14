@@ -8,7 +8,7 @@ const EditorPanel = ({ setEditorMode }: EditorPanelProps) => {
   return (
     <div className="d-flex flex-column p-3" id="editor-panel">
       <div className="position-relative" style={{ height: '35px', cursor: 'pointer' }} onClick={() => setEditorMode('node')}><div className="cell-node"></div></div>
-      <div className="d-flex justify-content-center" style={{ height: '35px', cursor: 'pointer' }} onClick={() => setEditorMode('line')}>
+      <div className="d-flex justify-content-center" style={{ height: '35px', cursor: 'pointer' }} onClick={() => setEditorMode('edge')}>
         <div className="mt-1 ms-1" style={{
           width: '35px',
           height: '3px',
@@ -17,8 +17,9 @@ const EditorPanel = ({ setEditorMode }: EditorPanelProps) => {
           backgroundColor: 'red',
         }}></div>
       </div>
-      <div>Edit</div>
-      <div>Run</div>
+      <div style={{ cursor: 'pointer' }}>
+        <i className="bi bi-trash text-danger" style={{ fontSize: '25px' }}></i>
+      </div>
       {/** TODO: add clear button */}
     </div>
   )
