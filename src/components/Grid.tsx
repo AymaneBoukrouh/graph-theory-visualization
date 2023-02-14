@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react';
 import './Grid.css';
+import Node from './Node';
 import Line from './Line';
+import Coords from '../types/Coords';
 
 interface GridProps {
   editorMode: string;
-}
-
-interface Coords {
-  x: number;
-  y: number;
 }
 
 const Grid = ({ editorMode }: GridProps) => {
@@ -16,6 +13,9 @@ const Grid = ({ editorMode }: GridProps) => {
   const [gridX, setGridX] = useState<number>(0);
   const [gridY, setGridY] = useState<number>(0);
   const [currentCoords, setCurrentCoords] = useState<Coords>({x: -1, y: -1} as Coords);
+
+  // node
+  const [nodes, setNodes] = useState<any>([] as any[]); // TODO: use Node instead of any
 
   // line
   const [selectedLineStartCoords, setSelectedLineStartCoords] = useState<Coords>({x: -1, y: -1} as Coords);
@@ -35,13 +35,8 @@ const Grid = ({ editorMode }: GridProps) => {
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // Editor Mode: NODE
     if (editorMode === 'node') {
-      if (e.currentTarget.classList.contains('has-node'))
-        return;
-      
-      const node = document.createElement('div');
-      node.classList.add('cell-node');
-      e.currentTarget.appendChild(node);
-      e.currentTarget.classList.add('has-node');
+      const node = Node({coords: currentCoords, label: String.fromCharCode(65+nodes.length)});
+      setNodes([...nodes, node]);
     }
 
     // Editor Mode: LINE
@@ -107,7 +102,8 @@ const Grid = ({ editorMode }: GridProps) => {
             }
           </div>
         })
-      } 
+      }
+      {nodes}
       {lines}
     </div>
   )
