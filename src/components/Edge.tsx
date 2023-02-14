@@ -1,14 +1,14 @@
-interface LineProps {
+interface EdgeProps {
   x1: number;
   y1: number;
   x2: number;
   y2: number;
 }
 
-const Line = ({ x1, y1, x2, y2 }: LineProps) => {
+const Edge = ({ x1, y1, x2, y2 }: EdgeProps) => {
   const length = Math.sqrt((y1 - y2) * (y1 - y2) + (x1 - x2) * (x1 - x2));
   const angle = Math.atan2(x2 - x1, y2 - y1) * 180 / Math.PI;
-  return <div className="d-flex justify-content-center line" style={{
+  return <div className="d-flex justify-content-center edge" style={{
     position: 'absolute',
     top: `${x1+17.5}px`,
     left: `${y1+17.5}px`,
@@ -28,4 +28,4 @@ const Line = ({ x1, y1, x2, y2 }: LineProps) => {
   </div>;
 };
 
-export default Line;
+export default Edge;

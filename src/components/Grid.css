@@ -32,7 +32,7 @@
   border-radius: 50%;
 }
 
-.line {
+.edge {
   pointer-events: none;
   z-index: 0;
 }

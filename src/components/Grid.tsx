@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './Grid.css';
 import Node from './Node';
-import Line from './Line';
+import Edge from './Edge';
 import Coords from '../types/Coords';
 
 interface GridProps {
@@ -17,12 +17,12 @@ const Grid = ({ editorMode }: GridProps) => {
   // node
   const [nodes, setNodes] = useState<any>([] as any[]); // TODO: use Node instead of any
 
-  // line
-  const [selectedLineStartCoords, setSelectedLineStartCoords] = useState<Coords>({x: -1, y: -1} as Coords);
-  const [selectedLineEndCoords, setSelectedLineEndCoords] = useState<Coords>({x: -1, y: -1} as Coords);
-  const [selectedLineIndex, setSelectedLineIndex] = useState<number>(-1);
-  const [isLineSelected, setIsLineSelected] = useState<boolean>(false);
-  const [lines, setLines] = useState<any>([] as any[]); // TODO: use Line instead of any
+  // edge
+  const [selectedEdgeStartCoords, setSelectedEdgeStartCoords] = useState<Coords>({x: -1, y: -1} as Coords);
+  const [selectedEdgeEndCoords, setSelectedEdgeEndCoords] = useState<Coords>({x: -1, y: -1} as Coords);
+  const [selectedEdgeIndex, setSelectedEdgeIndex] = useState<number>(-1);
+  const [isEdgeSelected, setIsEdgeSelected] = useState<boolean>(false);
+  const [edges, setEdges] = useState<any>([] as any[]); // TODO: use Edge instead of any
 
   // mouse
   const onMouseEnter = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -40,31 +40,31 @@ const Grid = ({ editorMode }: GridProps) => {
     }
 
     // Editor Mode: LINE
-    else if (editorMode === 'line') {
+    else if (editorMode === 'edge') {
       if (!e.currentTarget.classList.contains('has-node'))
         return;
 
-      if (isLineSelected) {
-        if (selectedLineStartCoords != selectedLineEndCoords) {
-          setSelectedLineEndCoords(currentCoords)
-          setIsLineSelected(false);
+      if (isEdgeSelected) {
+        if (selectedEdgeStartCoords != selectedEdgeEndCoords) {
+          setSelectedEdgeEndCoords(currentCoords)
+          setIsEdgeSelected(false);
         }
       } else {
-        setSelectedLineIndex(selectedLineIndex+1);
-        setSelectedLineStartCoords(currentCoords);
-        setSelectedLineEndCoords(currentCoords);
-        setIsLineSelected(true);
+        setSelectedEdgeIndex(selectedEdgeIndex+1);
+        setSelectedEdgeStartCoords(currentCoords);
+        setSelectedEdgeEndCoords(currentCoords);
+        setIsEdgeSelected(true);
       }
     }
   }
 
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (editorMode === 'line' && isLineSelected) {
+    if (editorMode === 'edge' && isEdgeSelected) {
       // get mouse position within grid
       const mouseX = e.clientX - e.currentTarget.getBoundingClientRect().left;
       const mouseY = e.clientY - e.currentTarget.getBoundingClientRect().top;
 
-      setSelectedLineEndCoords({x: mouseY-17.5, y: mouseX-17.5} as Coords);
+      setSelectedEdgeEndCoords({x: mouseY-17.5, y: mouseX-17.5} as Coords);
     }
   }
 
@@ -74,14 +74,14 @@ const Grid = ({ editorMode }: GridProps) => {
   }, []);
 
   useEffect(() => {
-    if (selectedLineIndex === -1)
+    if (selectedEdgeIndex === -1)
       return;
 
-    const [x1, y1] = [selectedLineStartCoords.x, selectedLineStartCoords.y];
-    const [x2, y2] = [selectedLineEndCoords.x, selectedLineEndCoords.y];
-    lines[selectedLineIndex] = <Line x1={x1} y1={y1} x2={x2} y2={y2} key={selectedLineIndex} />;
-    setLines([...lines]);
-  }, [selectedLineStartCoords, selectedLineEndCoords]);
+    const [x1, y1] = [selectedEdgeStartCoords.x, selectedEdgeStartCoords.y];
+    const [x2, y2] = [selectedEdgeEndCoords.x, selectedEdgeEndCoords.y];
+    edges[selectedEdgeIndex] = <Edge x1={x1} y1={y1} x2={x2} y2={y2} key={selectedEdgeIndex} />;
+    setEdges([...edges]);
+  }, [selectedEdgeStartCoords, selectedEdgeEndCoords]);
   
   return (
     <div className="grid position-relative" id="grid" onMouseMove={onMouseMove}>
@@ -104,7 +104,7 @@ const Grid = ({ editorMode }: GridProps) => {
         })
       }
       {nodes}
-      {lines}
+      {edges}
     </div>
   )
 }
