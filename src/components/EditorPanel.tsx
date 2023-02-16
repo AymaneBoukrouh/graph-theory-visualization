@@ -1,10 +1,14 @@
+import { connect } from 'react-redux';
+import { useState } from 'react';
 import './EditorPanel.css';
 
 interface EditorPanelProps {
   setEditorMode: (mode: string) => void;
 }
 
-const EditorPanel = ({ setEditorMode }: EditorPanelProps) => {
+const EditorPanel = (props: EditorPanelProps) => {
+  const { setEditorMode } = props;
+
   return (
     <div className="d-flex flex-column p-3" id="editor-panel">
       <div className="position-relative" style={{ height: '35px', cursor: 'pointer' }} onClick={() => setEditorMode('node')}><div className="cell-node"></div></div>
@@ -17,12 +21,19 @@ const EditorPanel = ({ setEditorMode }: EditorPanelProps) => {
           backgroundColor: 'red',
         }}></div>
       </div>
-      <div style={{ cursor: 'pointer' }}>
+      <div style={{ cursor: 'pointer' }} onClick={() => setEditorMode('delete')}>
         <i className="bi bi-trash text-danger" style={{ fontSize: '25px' }}></i>
       </div>
       {/** TODO: add clear button */}
     </div>
-  )
-}
+  );
+};
 
-export default EditorPanel;
+const mapDispatchToProps = {
+  setEditorMode: (mode: string) => ({
+    type: 'SET_MODE',
+    payload: mode
+  })
+};
+
+export default connect(null, mapDispatchToProps)(EditorPanel);

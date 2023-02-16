@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './Grid.css';
 import Node from './Node';
 import Edge from './Edge';
 import Coords from '../types/Coords';
 
-interface GridProps {
-  editorMode: string;
-}
+const Grid = () => {
+  const editorMode = useSelector((state: any) => state.mode.mode);
 
-const Grid = ({ editorMode }: GridProps) => {
   // grid
   const [gridX, setGridX] = useState<number>(0);
   const [gridY, setGridY] = useState<number>(0);
@@ -39,10 +38,10 @@ const Grid = ({ editorMode }: GridProps) => {
       setNodes([...nodes, node]);
     }
 
-    // Editor Mode: LINE
+    // Editor Mode: EDGE
     else if (editorMode === 'edge') {
-      if (!e.currentTarget.classList.contains('has-node'))
-        return;
+      //if (!e.currentTarget.classList.contains('has-node'))
+      //  return;
 
       if (isEdgeSelected) {
         if (selectedEdgeStartCoords != selectedEdgeEndCoords) {
