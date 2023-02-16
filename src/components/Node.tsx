@@ -13,7 +13,8 @@ const Node = ({ coords, label }: NodeProps) => {
         left: `${coords.y}px`,
         top: `${coords.x}px`,
         width: '35px',
-        height: '35px'
+        height: '35px',
+        pointerEvents: 'none'
       }}>
       {label}
     </div>

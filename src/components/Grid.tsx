@@ -14,7 +14,7 @@ interface GridProps {
 
 const Grid = ({ graph, setGraph }: GridProps) => {
   const editorMode = useSelector((state: any) => state.mode.mode);
-  const { addNode } = useGraph({ graph, setGraph });
+  const { addNode, removeNode } = useGraph({ graph, setGraph });
 
   // grid
   const [gridX, setGridX] = useState<number>(0);
@@ -65,6 +65,11 @@ const Grid = ({ graph, setGraph }: GridProps) => {
         setIsEdgeSelected(true);
       }
     }
+
+    // Editor Mode: DELETE
+    else if (editorMode === 'delete') {
+      removeNode(currentCoords);
+    }
   }
 
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -83,9 +88,6 @@ const Grid = ({ graph, setGraph }: GridProps) => {
   }, []);
 
   useEffect(() => {
-    if (graph.nodes.length === 0)
-      return;
-
     const newNodes = graph.nodes.map((node, index) => {
       return <Node coords={node.coords} label={node.label} key={index} />
     });
