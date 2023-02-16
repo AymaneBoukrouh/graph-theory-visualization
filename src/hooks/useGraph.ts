@@ -1,7 +1,7 @@
-import Graph from '../types/Graph';
-import Node from '../types/Node';
-import Edge from '../types/Edge';
-import Coords from '../types/Coords';
+import Graph from '@/types/Graph';
+import Node from '@/types/Node';
+import Edge from '@/types/Edge';
+import Coords from '@/types/Coords';
 
 interface useGraphProps {
   graph: Graph;

@@ -3,7 +3,7 @@ import Grid from './components/Grid';
 import EditorPanel from './components/EditorPanel';
 import Graph from './types/Graph';
 import Node from './types/Node';
-import Edge from './types/Edge';
+import Edge from '@/types/Edge';
 import './App.css';
 
 interface AppProps {}

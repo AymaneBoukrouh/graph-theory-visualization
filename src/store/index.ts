@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import modeReducer from './reducers/modeReducer';
+import modeReducer from '@/reducers/modeReducer';
 
 const store = configureStore({
   reducer: {

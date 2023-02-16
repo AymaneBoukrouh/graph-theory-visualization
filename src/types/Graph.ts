@@ -1,5 +1,5 @@
-import Node from './Node';
-import Edge from './Edge';
+import Node from '@/types/Node';
+import Edge from '@/types/Edge';
 
 interface Graph {
   nodes: Node[];

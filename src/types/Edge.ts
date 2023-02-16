@@ -1,4 +1,4 @@
-import Node from './Node';
+import Node from '@/types/Node';
 
 interface Edge {
   source: Node;

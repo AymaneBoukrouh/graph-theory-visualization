@@ -1,4 +1,4 @@
-import Coords from '../types/Coords';
+import Coords from '@/types/Coords';
 
 interface NodeProps {
   coords: Coords;

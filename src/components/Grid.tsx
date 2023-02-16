@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useGraph } from '@/hooks/useGraph';
+import Node from '@/components/Node';
+import Edge from '@/components/Edge';
+import Graph from '@/types/Graph';
+import Coords from '@/types/Cords';
 import './Grid.css';
-import Graph from '../types/Graph';
-import Node from './Node';
-import Edge from './Edge';
-import Coords from '../types/Coords';
-import { useGraph } from '../hooks/useGraph';
 
 interface GridProps {
   graph: Graph;

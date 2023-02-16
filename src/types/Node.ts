@@ -1,4 +1,4 @@
-import Coords from './Coords';
+import Coords from '@/types/Coords';
 
 interface Node {
   label: string;
