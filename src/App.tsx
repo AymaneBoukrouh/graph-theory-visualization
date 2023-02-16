@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Grid from './components/Grid';
-import EditorPanel from './components/EditorPanel';
+import ModePanel from './components/ModePanel';
 import Graph from './types/Graph';
 import Node from './types/Node';
 import Edge from '@/types/Edge';
@@ -17,7 +17,7 @@ const App = (props: AppProps) => {
   return (
     <div className="App">
       <div className="position-absolute top-50 start-0 translate-middle-y">
-        <EditorPanel />
+        <ModePanel />
       </div>
       <Grid graph={graph} setGraph={setGraph} />
     </div>
