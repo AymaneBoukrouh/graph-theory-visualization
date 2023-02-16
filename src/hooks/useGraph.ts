@@ -64,5 +64,17 @@ export const useGraph = ({ graph, setGraph }: useGraphProps) => {
     });
   }
 
-  return { getNode, addNode, removeNode };
+  // Edge manipulation
+  const addEdge = (source: Node, target: Node) => {
+    setGraph({
+      nodes: [...graph.nodes],
+      edges: [...graph.edges, { source, target }]
+    })
+  };
+
+  const removeEdge = (source: Node, target: Node) => {
+    // TODO: Implement
+  }
+
+  return { getNode, addNode, removeNode, addEdge, removeEdge };
 };

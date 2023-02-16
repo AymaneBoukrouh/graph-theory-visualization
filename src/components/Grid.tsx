@@ -14,7 +14,7 @@ interface GridProps {
 
 const Grid = ({ graph, setGraph }: GridProps) => {
   const editorMode = useSelector((state: any) => state.mode.mode);
-  const { addNode, removeNode, getNode } = useGraph({ graph, setGraph });
+  const { addNode, removeNode, getNode, addEdge, removeEdge } = useGraph({ graph, setGraph });
 
   const [dragging, setDragging] = useState<boolean>(false);
   const [draggingNode, setDraggingNode] = useState<any>(null as any); // TODO: use Node instead of any
@@ -55,6 +55,7 @@ const Grid = ({ graph, setGraph }: GridProps) => {
       if (isEdgeSelected) {
         if (selectedEdgeStartCoords != selectedEdgeEndCoords) {
           setSelectedEdgeEndCoords(currentCoords)
+          addEdge(getNode(selectedEdgeStartCoords)!, getNode(currentCoords)!);
           setIsEdgeSelected(false);
         }
       } else {
@@ -96,7 +97,23 @@ const Grid = ({ graph, setGraph }: GridProps) => {
             label: draggingNode.label
           }
         ],
-        edges: graph.edges
+        edges: [
+          ...graph.edges.filter((e) => e.source.label !== draggingNode.label && e.target.label !== draggingNode.label),
+          ...graph.edges.filter((e) => e.source.label === draggingNode.label).map((e) => ({
+            source: {
+              coords: currentCoords,
+              label: draggingNode.label
+            },
+            target: e.target
+          })),
+          ...graph.edges.filter((e) => e.target.label === draggingNode.label).map((e) => ({
+            source: e.source,
+            target: {
+              coords: currentCoords,
+              label: draggingNode.label
+            }
+          }))
+        ]
       });
 
       setDragging(false);
@@ -129,7 +146,21 @@ const Grid = ({ graph, setGraph }: GridProps) => {
             label: node.label
           }
         ],
-        edges: graph.edges
+        edges: [
+          ...graph.edges.filter((e) => e.source.label !== node.label && e.target.label !== node.label),
+          ...graph.edges.filter((e) => e.source.label === node.label).map((e) => {
+            return {
+              source: {coords: {x: mouseY-17.5, y: mouseX-17.5}, label: node.label},
+              target: e.target
+            }
+          }),
+          ...graph.edges.filter((e) => e.target.label === node.label).map((e) => {
+            return {
+              source: e.source,
+              target: {coords: {x: mouseY-17.5, y: mouseX-17.5}, label: node.label}
+            }
+          })
+        ]
       });
     }
   }
@@ -144,7 +175,19 @@ const Grid = ({ graph, setGraph }: GridProps) => {
       graph.nodes.map((node, index) => {
         return <Node coords={node.coords} label={node.label} key={index} />
       })
-    )
+    );
+
+    setEdges(
+      graph.edges.map((edge, index) => {
+        return <Edge
+          x1 = {edge.source.coords.x}
+          y1 = {edge.source.coords.y}
+          x2 = {edge.target.coords.x}
+          y2 = {edge.target.coords.y}
+          key = {index}
+        />
+      })
+    );
   }, [graph]);
 
   useEffect(() => {
