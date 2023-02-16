@@ -14,7 +14,10 @@ interface GridProps {
 
 const Grid = ({ graph, setGraph }: GridProps) => {
   const editorMode = useSelector((state: any) => state.mode.mode);
-  const { addNode, removeNode } = useGraph({ graph, setGraph });
+  const { addNode, removeNode, getNode } = useGraph({ graph, setGraph });
+
+  const [dragging, setDragging] = useState<boolean>(false);
+  const [draggingNode, setDraggingNode] = useState<any>(null as any); // TODO: use Node instead of any
 
   // grid
   const [gridX, setGridX] = useState<number>(0);
@@ -41,12 +44,8 @@ const Grid = ({ graph, setGraph }: GridProps) => {
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // Editor Mode: NODE
-    if (editorMode === 'node') {
+    if (editorMode === 'node')
       addNode(currentCoords);
-
-      //const node = Node({coords: currentCoords, label: String.fromCharCode(65+nodes.length)});
-      //setNodes([...nodes, node]);
-    }
 
     // Editor Mode: EDGE
     else if (editorMode === 'edge') {
@@ -68,9 +67,42 @@ const Grid = ({ graph, setGraph }: GridProps) => {
 
     // Editor Mode: DELETE
     else if (editorMode === 'delete') {
+      // TODO: check if node or edge
       removeNode(currentCoords);
     }
+
+    // Editor Mode: EDIT
+    else if (editorMode === 'edit') {
+      if (dragging)
+        return;
+
+      const node = getNode(currentCoords);
+      if (!node)
+        return;
+
+      setDragging(true);
+      setDraggingNode(node);
+    }
   }
+
+  const onMouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (editorMode === 'edit' && dragging) {
+      // update node position
+      setGraph({
+        nodes: [
+          ...graph.nodes.filter((n) => n.label !== draggingNode.label),
+          {
+            coords: currentCoords,
+            label: draggingNode.label
+          }
+        ],
+        edges: graph.edges
+      });
+
+      setDragging(false);
+      setDraggingNode(null);
+    }
+  };
 
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (editorMode === 'edge' && isEdgeSelected) {
@@ -80,6 +112,26 @@ const Grid = ({ graph, setGraph }: GridProps) => {
 
       setSelectedEdgeEndCoords({x: mouseY-17.5, y: mouseX-17.5} as Coords);
     }
+
+    else if (editorMode === 'edit' && dragging) {
+      const node = draggingNode;
+
+      // get mouse position within grid
+      const mouseX = e.clientX - e.currentTarget.getBoundingClientRect().left;
+      const mouseY = e.clientY - e.currentTarget.getBoundingClientRect().top;
+
+      // update node position
+      setGraph({
+        nodes: [
+          ...graph.nodes.filter((n) => n.label !== node.label),
+          {
+            coords: {x: mouseY-17.5, y: mouseX-17.5},
+            label: node.label
+          }
+        ],
+        edges: graph.edges
+      });
+    }
   }
 
   useEffect (() => {
@@ -88,11 +140,11 @@ const Grid = ({ graph, setGraph }: GridProps) => {
   }, []);
 
   useEffect(() => {
-    const newNodes = graph.nodes.map((node, index) => {
-      return <Node coords={node.coords} label={node.label} key={index} />
-    });
-    
-    setNodes(newNodes);
+    setNodes(
+      graph.nodes.map((node, index) => {
+        return <Node coords={node.coords} label={node.label} key={index} />
+      })
+    )
   }, [graph]);
 
   useEffect(() => {
@@ -118,6 +170,7 @@ const Grid = ({ graph, setGraph }: GridProps) => {
                   data-y        = {y}
                   onMouseEnter  = {onMouseEnter}
                   onMouseDown   = {onMouseDown}
+                  onMouseUp     = {onMouseUp}
                   key           = {`${x}-${y}`}
                 ></div>
               })

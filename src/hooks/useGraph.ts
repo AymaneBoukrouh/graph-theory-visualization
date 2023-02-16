@@ -30,6 +30,10 @@ export const useGraph = ({ graph, setGraph }: useGraphProps) => {
   };
 
   // Node manipulation
+  const getNode = (coords: Coords): Node | null => {
+    return graph.nodes.find(node => node.coords.x === coords.x && node.coords.y === coords.y) || null;
+  }
+
   const addNode = (coords: Coords) => {
     setGraph({
       nodes: [...graph.nodes, { label: getNextNodeLabel(), coords }],
@@ -60,5 +64,5 @@ export const useGraph = ({ graph, setGraph }: useGraphProps) => {
     });
   }
 
-  return { addNode, removeNode };
+  return { getNode, addNode, removeNode };
 };

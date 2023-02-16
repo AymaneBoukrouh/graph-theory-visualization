@@ -24,6 +24,9 @@ const EditorPanel = (props: EditorPanelProps) => {
       <div style={{ cursor: 'pointer' }} onClick={() => setEditorMode('delete')}>
         <i className="bi bi-trash text-danger" style={{ fontSize: '25px' }}></i>
       </div>
+      <div style={{ cursor: 'pointer' }} onClick={() => setEditorMode('edit')}>
+        <i className="bi bi-pencil text-primary" style={{ fontSize: '25px' }}></i>
+      </div>
       {/** TODO: add clear button */}
     </div>
   );
