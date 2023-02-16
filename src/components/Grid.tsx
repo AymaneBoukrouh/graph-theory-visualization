@@ -1,12 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './Grid.css';
+import Graph from '../types/Graph';
 import Node from './Node';
 import Edge from './Edge';
 import Coords from '../types/Coords';
+import { useGraph } from '../hooks/useGraph';
 
-const Grid = () => {
+interface GridProps {
+  graph: Graph;
+  setGraph: (graph: Graph) => void;
+}
+
+const Grid = ({ graph, setGraph }: GridProps) => {
   const editorMode = useSelector((state: any) => state.mode.mode);
+  const { addNode } = useGraph({ graph, setGraph });
 
   // grid
   const [gridX, setGridX] = useState<number>(0);
@@ -34,8 +42,10 @@ const Grid = () => {
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // Editor Mode: NODE
     if (editorMode === 'node') {
-      const node = Node({coords: currentCoords, label: String.fromCharCode(65+nodes.length)});
-      setNodes([...nodes, node]);
+      addNode(currentCoords);
+
+      //const node = Node({coords: currentCoords, label: String.fromCharCode(65+nodes.length)});
+      //setNodes([...nodes, node]);
     }
 
     // Editor Mode: EDGE
@@ -71,6 +81,17 @@ const Grid = () => {
     setGridX(20);
     setGridY(35);
   }, []);
+
+  useEffect(() => {
+    if (graph.nodes.length === 0)
+      return;
+
+    const newNodes = graph.nodes.map((node, index) => {
+      return <Node coords={node.coords} label={node.label} key={index} />
+    });
+    
+    setNodes(newNodes);
+  }, [graph]);
 
   useEffect(() => {
     if (selectedEdgeIndex === -1)
