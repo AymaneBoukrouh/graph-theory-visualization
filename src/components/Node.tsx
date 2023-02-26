@@ -14,7 +14,8 @@ const Node = ({ coords, label }: NodeProps) => {
         top: `${coords.x}px`,
         width: '35px',
         height: '35px',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        zIndex: 100
       }}>
       {label}
     </div>
