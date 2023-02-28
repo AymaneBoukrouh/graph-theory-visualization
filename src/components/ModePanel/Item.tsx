@@ -9,12 +9,12 @@ interface ModePanelItemProps {
 };
 
 const ModePanelItem = ({ mode, icon, color }: EditorPanelItemProps) => {
-  const editorMode = useSelector((state: any) => state.mode.mode);
+  const { editorMode } = useSelector((state: any) => state.mode);
 
   const dispatch = useDispatch();
 
   const setEditorMode = (mode: string) => {
-    dispatch({ type: 'SET_MODE', payload: mode });
+    dispatch({ type: 'SET_EDITOR_MODE', payload: mode });
   }
 
   return (

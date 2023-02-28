@@ -5,7 +5,7 @@ import Node from '@/components/Node';
 import Edge from '@/components/Edge';
 import Graph from '@/types/Graph';
 import Coords from '@/types/Cords';
-import './Grid.css';
+import './index.css';
 
 interface GridProps {
   graph: Graph;
@@ -13,7 +13,7 @@ interface GridProps {
 }
 
 const Grid = ({ graph, setGraph }: GridProps) => {
-  const editorMode = useSelector((state: any) => state.mode.mode);
+  const { editorMode } = useSelector((state: any) => state.mode);
   const { addNode, removeNode, getNode, addEdge, removeEdge } = useGraph({ graph, setGraph });
 
   const [dragging, setDragging] = useState<boolean>(false);
