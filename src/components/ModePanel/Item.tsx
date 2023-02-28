@@ -1,16 +1,21 @@
-import { connect, useSelector } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import './index.css';
 
 interface ModePanelItemProps {
-  setEditorMode: (mode: string) => void;
   mode: string;
   icon: string;
   color: string;
 };
 
-const ModePanelItem = ({ setEditorMode, mode, icon, color }: EditorPanelItemProps) => {
+const ModePanelItem = ({ mode, icon, color }: EditorPanelItemProps) => {
   const editorMode = useSelector((state: any) => state.mode.mode);
+
+  const dispatch = useDispatch();
+
+  const setEditorMode = (mode: string) => {
+    dispatch({ type: 'SET_MODE', payload: mode });
+  }
 
   return (
     <div
@@ -23,11 +28,4 @@ const ModePanelItem = ({ setEditorMode, mode, icon, color }: EditorPanelItemProp
   )
 }
 
-const mapDispatchToProps = {
-  setEditorMode: (mode: string) => ({
-    type: 'SET_MODE',
-    payload: mode
-  })
-};
-
-export default connect(null, mapDispatchToProps)(ModePanelItem);
+export default ModePanelItem;
