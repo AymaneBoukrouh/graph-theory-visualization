@@ -5,7 +5,7 @@ interface EdgeProps {
   y2: number;
 }
 
-const Edge = ({ x1, y1, x2, y2 }: EdgeProps) => {
+export const Edge = ({ x1, y1, x2, y2 }: EdgeProps) => {
   const length = Math.sqrt((y1 - y2) * (y1 - y2) + (x1 - x2) * (x1 - x2));
   const angle = Math.atan2(x2 - x1, y2 - y1) * 180 / Math.PI;
 
@@ -34,5 +34,3 @@ const Edge = ({ x1, y1, x2, y2 }: EdgeProps) => {
     </svg>
   );
 };
-
-export default Edge;

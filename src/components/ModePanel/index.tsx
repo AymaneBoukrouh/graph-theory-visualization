@@ -1,9 +1,7 @@
-import { connect, useSelector } from 'react-redux';
-import { useState } from 'react';
 import ModePanelItem from './Item';
 import './index.css';
 
-const ModePanel = () => {
+export const ModePanel = () => {
   return (
     <div className="d-flex flex-column" id="editor-panel" style={{ overflow: 'hidden' }}>
       <ModePanelItem mode="node" icon="circle-fill" color="secondary" />
@@ -13,5 +11,3 @@ const ModePanel = () => {
     </div>
   );
 };
-
-export default ModePanel;

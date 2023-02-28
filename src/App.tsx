@@ -1,25 +1,16 @@
 import { useState } from 'react';
-import Grid from './components/Grid';
-import ModePanel from './components/ModePanel';
-import Graph from './types/Graph';
-import Node from './types/Node';
-import Edge from '@/types/Edge';
+import { Grid, ModePanel } from '@/components';
 import './App.css';
 
 interface AppProps {}
 
 const App = (props: AppProps) => {
-  const [graph, setGraph] = useState<Graph>({
-    nodes: [] as Node[],
-    edges: [] as Edge[]
-  } as Graph);
-
   return (
     <div className="App">
       <div className="position-absolute top-50 start-0 translate-middle-y">
         <ModePanel />
       </div>
-      <Grid graph={graph} setGraph={setGraph} />
+      <Grid />
     </div>
   );
 }

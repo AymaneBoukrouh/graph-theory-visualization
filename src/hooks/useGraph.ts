@@ -1,14 +1,7 @@
-import Graph from '@/types/Graph';
-import Node from '@/types/Node';
-import Edge from '@/types/Edge';
-import Coords from '@/types/Coords';
+import { useSelector, useDispatch } from 'react-redux';
+import { Graph, Node, Edge, Coords } from '@/types';
 
-interface useGraphProps {
-  graph: Graph;
-  setGraph: (graph: Graph) => void;
-}
-
-export const useGraph = ({ graph, setGraph }: useGraphProps) => {
+export const useGraph = () => {
   /*
     This hook is responsible for basic graph manipulation.
     When a node is added:
@@ -17,6 +10,11 @@ export const useGraph = ({ graph, setGraph }: useGraphProps) => {
       - All edges connected to the node are removed
       - All labels of nodes after the removed node are decremented
   */
+
+  const { graph } = useSelector((state: any) => state.graph);
+
+  const dispatch = useDispatch();
+  const setGraph = (graph: Graph) => dispatch({ type: 'SET_GRAPH', payload: graph });
 
   // Helper functions
   const getNextNodeLabel = () => {

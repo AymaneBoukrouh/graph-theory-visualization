@@ -5,7 +5,7 @@ interface NodeProps {
   label: string;
 };
 
-const Node = ({ coords, label }: NodeProps) => {
+export const Node = ({ coords, label }: NodeProps) => {
   return (
     <div
       className="cell-node d-flex align-items-center justify-content-center text-white"
@@ -21,5 +21,3 @@ const Node = ({ coords, label }: NodeProps) => {
     </div>
   )
 }
-
-export default Node;

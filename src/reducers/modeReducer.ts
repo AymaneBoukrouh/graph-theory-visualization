@@ -2,7 +2,7 @@ const initialState = {
   editorMode: 'node'
 }
 
-const modeReducer = (state = initialState, action: any) => {
+export const modeReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case 'SET_EDITOR_MODE':
       return {
@@ -13,5 +13,3 @@ const modeReducer = (state = initialState, action: any) => {
       return state
   }
 }
-
-export default modeReducer;

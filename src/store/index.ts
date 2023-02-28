@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import modeReducer from '@/reducers/modeReducer';
+import { graphReducer, modeReducer, mouseReducer } from '@/reducers';
 
 const store = configureStore({
   reducer: {
     mode: modeReducer,
+    mouse: mouseReducer,
+    graph: graphReducer
   },
 });
 
