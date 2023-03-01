@@ -56,13 +56,15 @@ export const useMouseMove = () => {
             ...graph.edges.filter((e: Edge) => e.source.label === node.label).map((e: Edge) => {
               return {
                 source: { label: node.label, coords: { x: mouseX-17.5, y: mouseY-17.5 } },
-                target: e.target
+                target: e.target,
+                weight: e.weight
               }
             }),
             ...graph.edges.filter((e: Edge) => e.target.label === node.label).map((e: Edge) => {
               return {
                 source: e.source,
-                target: { label: node.label, coords: { x: mouseX-17.5, y: mouseY-17.5 } }
+                target: { label: node.label, coords: { x: mouseX-17.5, y: mouseY-17.5 } },
+                weight: e.weight
               }
             })
           ]

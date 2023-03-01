@@ -35,14 +35,16 @@ export const useMouseUp = () => {
             ...graph.edges.filter((e: Edge) => e.source.label !== draggingNode.label && e.target.label !== draggingNode.label),
             ...graph.edges.filter((e: Edge) => e.source.label === draggingNode.label).map((e: Edge) => {
               return {
-                source: { label: draggingNode.label, coords: { mouseCoords } },
-                target: e.target
+                source: { label: draggingNode.label, coords: mouseCoords },
+                target: e.target,
+                weight: e.weight
               }
             }),
             ...graph.edges.filter((e: Edge) => e.target.label === draggingNode.label).map((e: Edge) => {
               return {
                 source: e.source,
-                target: { label: draggingNode.label, coords: { mouseCoords } }
+                target: { label: draggingNode.label, coords: mouseCoords },
+                weight: e.weight
               }
             })
           ]
