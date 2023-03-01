@@ -18,7 +18,7 @@ const ModePanelItem = ({ mode, icon, color }: EditorPanelItemProps) => {
     <div
       className = 'position-relative p-3'
       style = {{ cursor: 'pointer', backgroundColor: editorMode === mode ? '#eee' : 'transparent' }}
-      onClick = {() => (mode: string) => {
+      onClick = {() => {
         dispatch({ type: 'SET_EDITOR_MODE', payload: mode });
 
         if (editorMode !== 'edge')
