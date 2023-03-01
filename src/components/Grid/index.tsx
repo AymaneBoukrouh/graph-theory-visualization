@@ -57,6 +57,7 @@ export const Grid = () => {
             y1 = {edge.source.coords.y}
             x2 = {edge.target.coords.x}
             y2 = {edge.target.coords.y}
+            weight = {edge.weight}
             key = {index}
           />
         })

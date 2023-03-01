@@ -5,7 +5,7 @@ interface EdgeProps {
   y2: number;
 }
 
-export const Edge = ({ x1, y1, x2, y2 }: EdgeProps) => {
+export const Edge = ({ x1, y1, x2, y2, weight }: EdgeProps) => {
   const length = Math.sqrt((y1 - y2) * (y1 - y2) + (x1 - x2) * (x1 - x2));
   const angle = Math.atan2(x2 - x1, y2 - y1) * 180 / Math.PI;
 
@@ -20,6 +20,7 @@ export const Edge = ({ x1, y1, x2, y2 }: EdgeProps) => {
         height: '3px',
         transform: `rotate(${angle}deg)`,
         transformOrigin: '0 0',
+        overflow: 'visible',
       }}
     >
       <line
@@ -28,9 +29,18 @@ export const Edge = ({ x1, y1, x2, y2 }: EdgeProps) => {
         x2={length}
         y2="0"
         stroke="red"
-        strokeWidth="100"
+        strokeWidth="3"
       />
-      {/*weight*/}
+      <text // TODO: rotate text in the negative direction
+        x={ length / 2 }
+        y={ 15 }
+        textAnchor="middle"
+        alignmentBaseline="middle"
+        fill="black"
+        fontSize="20px"
+      >
+        {weight}
+      </text>
     </svg>
   );
 };

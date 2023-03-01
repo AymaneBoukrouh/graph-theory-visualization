@@ -36,7 +36,7 @@ export const useMouseDown = () => {
             }
           });
 
-          addEdge(selectedEdge.source, node);
+          addEdge(selectedEdge.source, node, 1); // TODO: get weight from user
 
           dispatch({
             type: 'SET_IS_EDGE_SELECTED',

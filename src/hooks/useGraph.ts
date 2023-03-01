@@ -63,10 +63,10 @@ export const useGraph = () => {
   }
 
   // Edge manipulation
-  const addEdge = (source: Node, target: Node) => {
+  const addEdge = (source: Node, target: Node, weight: number) => {
     setGraph({
       nodes: [...graph.nodes],
-      edges: [...graph.edges, { source, target }]
+      edges: [...graph.edges, { source, target, weight }]
     })
   };
 
