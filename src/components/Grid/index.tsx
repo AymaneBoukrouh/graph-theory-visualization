@@ -53,10 +53,8 @@ export const Grid = () => {
       }
       { graph.edges.map((edge, index) => {
           return <Edge
-            x1 = {edge.source.coords.x}
-            y1 = {edge.source.coords.y}
-            x2 = {edge.target.coords.x}
-            y2 = {edge.target.coords.y}
+            source = {edge.source}
+            target = {edge.target}
             weight = {edge.weight}
             key = {index}
           />
@@ -68,10 +66,9 @@ export const Grid = () => {
          */ }
       { isEdgeSelected &&
         <Edge
-          x1 = { selectedEdge.source.coords.x }
-          y1 = { selectedEdge.source.coords.y }
-          x2 = { selectedEdge.target.coords.x }
-          y2 = { selectedEdge.target.coords.y }
+          source = {selectedEdge.source}
+          target = {selectedEdge.target}
+          weight = {selectedEdge.weight}
         />
       }
     </div>

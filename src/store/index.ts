@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { graphReducer, modeReducer, mouseReducer, algorithmReducer } from '@/reducers';
+import { graphReducer, modeReducer, mouseReducer, algorithmReducer, animationReducer } from '@/reducers';
 
 const store = configureStore({
   reducer: {
@@ -7,6 +7,7 @@ const store = configureStore({
     mouse: mouseReducer,
     graph: graphReducer,
     algorithm: algorithmReducer,
+    animation: animationReducer
   },
 });
 
