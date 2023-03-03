@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { graphReducer, modeReducer, mouseReducer } from '@/reducers';
+import { graphReducer, modeReducer, mouseReducer, algorithmReducer } from '@/reducers';
 
 const store = configureStore({
   reducer: {
     mode: modeReducer,
     mouse: mouseReducer,
-    graph: graphReducer
+    graph: graphReducer,
+    algorithm: algorithmReducer,
   },
 });
 
