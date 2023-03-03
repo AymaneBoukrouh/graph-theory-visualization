@@ -29,7 +29,8 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "dev": "craco start"
+    "dev": "craco start",
+    "cy:e2e": "cypress run --headed"
   },
   "eslintConfig": {
     "extends": [
