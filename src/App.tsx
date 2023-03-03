@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Grid, ModePanel, AlgorithmPanel } from '@/components';
+import { Grid, ModePanel, AlgorithmPanel, StatusPanel } from '@/components';
 import './App.css';
 
 interface AppProps {}
@@ -12,6 +12,9 @@ const App = (props: AppProps) => {
       </div>
       <div className="position-absolute top-0 start-50 translate-middle-x">
         <AlgorithmPanel />
+      </div>
+      <div className="position-absolute top-50 end-0 translate-middle-y">
+        <StatusPanel />
       </div>
       <Grid />
     </div>
