@@ -28,7 +28,7 @@ export const kruskal = (graph: Graph) => {
 
       edgesToAnimate.push({ edge, color: 'green' });
     } else {
-      edgesToAnimate.push({ edge, color: 'red' });
+      edgesToAnimate.push({ edge, color: 'white' });
     }
   }
 
