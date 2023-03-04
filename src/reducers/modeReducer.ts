@@ -1,5 +1,5 @@
 const initialState = {
-  editorMode: 'node'
+  editorMode: 'grid'
 }
 
 export const modeReducer = (state = initialState, action: any) => {
