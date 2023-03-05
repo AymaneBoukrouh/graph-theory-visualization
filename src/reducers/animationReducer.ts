@@ -7,7 +7,8 @@ interface AnimationState {
 
 const initialState = {
   animatedEdge: null,
-  duration: 2000
+  duration: 2000,
+  statusEdges: [] as Edge[]
 };
 
 export const animationReducer = (state = initialState, action: any) => {
@@ -21,6 +22,11 @@ export const animationReducer = (state = initialState, action: any) => {
       return {
         ...state,
         duration: action.payload
+      }
+    case 'SET_STATUS_EDGES':
+      return {
+        ...state,
+        statusEdges: action.payload
       }
     default:
       return state

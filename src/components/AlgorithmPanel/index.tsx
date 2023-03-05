@@ -1,4 +1,5 @@
 import AlgorithmPanelItem from './Item';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Graph, Node, Edge } from '@/types';
 import { willHaveCycle, getNodeByLabel } from '@/algorithms/utils';
@@ -24,7 +25,18 @@ export const AlgorithmPanel = () => {
     }
   }
 
-  const algorithms = ['bellman-ford', 'dijkstra', 'floyd-warshall', 'kruskal', 'prim']
+  const algorithms = ['bellman-ford', 'dijkstra', 'floyd-warshall', 'kruskal', 'prim'];
+
+  useEffect(() => {
+    if (algorithm === 'kruskal') {
+      var sortedEdges = JSON.parse(JSON.stringify(graph.edges)).sort((a: Edge, b: Edge) => a.weight - b.weight);
+
+      dispatch({
+        type: 'SET_STATUS_EDGES',
+        payload: sortedEdges
+      });
+    }
+  }, [algorithm, graph.edges]);
 
   return (
     <div>

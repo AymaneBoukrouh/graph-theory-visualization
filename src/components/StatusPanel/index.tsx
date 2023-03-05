@@ -1,17 +1,18 @@
+import { useSelector } from 'react-redux';
 import StatusPanelItem from './Item';
 import './index.css';
 
 export const StatusPanel = () => {
+  const { statusEdges } =  useSelector((state: any) => state.animation);
+
   return (
     <div className="d-flex flex-column" id="status-panel" style={{ overflow: 'hidden' }}>
-      <StatusPanelItem text="F-C" />
-      <StatusPanelItem text="A-B" />
-      <StatusPanelItem text="A-C" />
-      <StatusPanelItem text="B-C" />
-      <StatusPanelItem text="E-D" />
-      <StatusPanelItem text="A-F" />
-      <StatusPanelItem text="C-D" />
-      <StatusPanelItem text="C-E" />
+      {statusEdges.map((edge: any) =>
+        <StatusPanelItem
+          key={`status-edge-${edge.source.label}-${edge.target.label}`}
+          text={`${edge.source.label}-${edge.target.label}`}
+        />
+      )}
     </div>
   );
 };
