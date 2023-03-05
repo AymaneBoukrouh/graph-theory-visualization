@@ -5,7 +5,8 @@ const initialState = {
   isDragging: false,
   draggingNode: null,
   isEdgeSelected: false,
-  selectedEdge: null
+  selectedEdge: null,
+  prevMousePos: { x: -1, y: -1 } as Coords
 }
 
 export const mouseReducer = (state = initialState, action: any) => {
@@ -20,6 +21,8 @@ export const mouseReducer = (state = initialState, action: any) => {
       return { ...state, isEdgeSelected: action.payload, selectedEdge: action.payload === true ? state.selectedEdge : null }
     case 'SET_SELECTED_EDGE':
       return { ...state, selectedEdge: action.payload }
+    case 'SET_PREV_MOUSE_POS':
+      return { ...state, prevMousePos: action.payload }
     default:
       return state
   }

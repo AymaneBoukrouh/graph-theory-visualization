@@ -46,7 +46,7 @@ export const useGraph = () => {
     
     const nodeToRemoveIndex = graph.nodes.indexOf(nodeToRemove);
 
-    setGraph({
+    setGraph({ // FIXME: update edges as well
       nodes: [
         ...graph.nodes.slice(0, nodeToRemoveIndex),
         ...graph.nodes.slice(nodeToRemoveIndex+1).map(node => {

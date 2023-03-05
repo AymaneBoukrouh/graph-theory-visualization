@@ -1,76 +1,48 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { useGraph } from '@/hooks/useGraph';
 import { useMouseEvents } from '@/hooks/useMouseEvents';
-import { Node, Edge } from '@/components/Graph';
-import './index.css';
+import { Grid as Gridd } from './Grid';
+import { Edges, Edge } from './Edges';
+import { Nodes } from './Nodes';
+import { useEventHandlers } from './eventHandlers';
 
 export const Grid = () => {
-  // get redux state
-  const { isEdgeSelected, selectedEdge } = useSelector((state: any) => state.mouse);
+  // TODO: limit grid dragging edges..
+  // TODO: slider and minimap
+
   const { graph } = useSelector((state: any) => state.graph);
+  const { gridSize, cellSize, scale, offset } = useSelector((state: any) => state.grid);
 
-  // get redux dispatch
-  const dispatch = useDispatch();
+  const {
+    isEdgeSelected,
+    selectedEdge
+   } = useSelector((state: any) => state.mouse);
 
-  // mouse events handlers
-  const { onMouseEnter, onMouseDown, onMouseMove, onMouseUp } = useMouseEvents();
 
-  // initialize the grid
-  const [gridX, setGridX] = useState<number>(0);
-  const [gridY, setGridY] = useState<number>(0);
-  
-  useEffect (() => {
-    setGridX(20);
-    setGridY(35);
-  }, []);
-  
+  const [width, height] = [gridSize.x * cellSize, gridSize.y * cellSize];
+
+  const { handleResize, handleMouseDown, handleMouseMove, handleMouseUp } = useEventHandlers();
+
   return (
-    <div className="grid position-relative" id="grid" onMouseMove={onMouseMove}>
-      {
-        Array.from(Array(gridX).keys()).map((x) => {
-          return <div className="grid-row" key={x}>
-            {
-              Array.from(Array(gridY).keys()).map((y) => {
-                return <div
-                  className     = "grid-cell position-relative"
-                  data-x        = { x }
-                  data-y        = { y }
-                  onMouseEnter  = { onMouseEnter }
-                  onMouseDown   = { onMouseDown }
-                  onMouseUp     = { onMouseUp }
-                  key           = { `${x}-${y}` }
-                ></div>
-              })
-            }
-          </div>
-        })
-      }
-
-      { /** The graph nodes and edges are rendered separately */ }
-      { graph.nodes.map((node, index) => {
-          return <Node label={node.label} coords={node.coords} key={index} />
-        })
-      }
-      { graph.edges.map((edge, index) => {
-          return <Edge
-            source = {edge.source}
-            target = {edge.target}
-            weight = {edge.weight}
-            key = {index}
-          />
-        })
-      }
-
-      { /** This edge is shown during the creation of a new edge
-         * It is not part of the graph, but a temporary edge 
-         */ }
-      { isEdgeSelected &&
-        <Edge
-          source = {selectedEdge.source}
-          target = {selectedEdge.target}
-          weight = {selectedEdge.weight}
-        />
-      }
+    <div
+      className = "border rounded-3 overflow-hidden"
+      style = {{ height: '75%', width: '75%', borderColor: 'rgba(0, 0, 0, .1)' }}
+      onWheel = {handleResize}
+      onMouseUp = {handleMouseUp}
+      onMouseMove = {handleMouseMove}
+    >
+      <svg
+        id="svg-grid"
+        viewBox = {`${offset.x} ${offset.y} ${width} ${height}`}
+        transform = {`scale(${scale})`}
+        onMouseDown = { handleMouseDown }
+      >
+        <Gridd />
+        <Edges />
+        <Nodes />
+        { isEdgeSelected && <Edge edge={selectedEdge} /> }
+      </svg>
     </div>
-  )
-}
+  );
+};
