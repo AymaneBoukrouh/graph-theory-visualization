@@ -9,6 +9,7 @@ interface EdgeProps {
 
 export const Edge = ({ edge }: EdgeProps) => {
   const { cellSize } = useSelector((state: any) => state.grid);
+  const { duration } = useSelector((state: any) => state.animation);
 
   const source = edge.source;
   const target = edge.target;
@@ -83,7 +84,7 @@ export const Edge = ({ edge }: EdgeProps) => {
       targets: [line1, line2],
       strokeDashoffset: [anime.setDashoffset, 0],
       easing: 'easeInOutSine',
-      duration: 2000
+      duration: duration
     })
   }, [animatedEdge]);
 

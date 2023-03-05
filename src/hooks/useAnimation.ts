@@ -1,6 +1,9 @@
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const useAnimation = () => {
+  const { duration } = useSelector((state: any) => state.animation);
+  const delay = Math.floor(duration / 10);
+
   const dispatch = useDispatch();
 
   const animateEdges = (edgesToAnimate: { edge: Edge, color: string }[]) => {
@@ -10,7 +13,7 @@ export const useAnimation = () => {
           type: 'ANIMATE_EDGE',
           payload: edgeToAnimate
         })
-      }, 2100 * index);
+      }, (duration + delay) * index);
     });
   }
 
