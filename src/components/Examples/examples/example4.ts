@@ -1,11 +1,11 @@
 const nodes = [
-  { label: 'A', coords: { x: 10, y: 10 } },
-  { label: 'B', coords: { x: 15, y: 10 } },
-  { label: 'C', coords: { x: 20, y: 10 } },
-  { label: 'D', coords: { x: 10, y: 15 } },
-  { label: 'E', coords: { x: 15, y: 15 } },
-  { label: 'F', coords: { x: 20, y: 15 } },
-  { label: 'G', coords: { x: 15, y: 20 } },
+  { label: 'A', coords: { x: 20, y: 14 } },
+  { label: 'B', coords: { x: 25, y: 14 } },
+  { label: 'C', coords: { x: 30, y: 14 } },
+  { label: 'D', coords: { x: 20, y: 19 } },
+  { label: 'E', coords: { x: 25, y: 19 } },
+  { label: 'F', coords: { x: 30, y: 19 } },
+  { label: 'G', coords: { x: 25, y: 24 } },
 ];
 
 const edges = [

@@ -1,7 +1,7 @@
 const nodes = [
-  { label: 'A', coords: { x: 10, y: 10 } },
-  { label: 'B', coords: { x: 15, y: 15 } },
-  { label: 'C', coords: { x: 5, y: 15 } },
+  { label: 'A', coords: { x: 20, y: 15 } },
+  { label: 'B', coords: { x: 25, y: 20 } },
+  { label: 'C', coords: { x: 15, y: 20 } },
 ];
 
 const edges = [
