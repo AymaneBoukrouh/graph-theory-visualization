@@ -8,6 +8,7 @@ interface GridState {
   maxScale: number;
   isGridDragging: boolean;
   offset: Coords;
+  ratio: number;
 }
 
 const initialState: GridState = {
@@ -17,7 +18,8 @@ const initialState: GridState = {
   minScale: 1, // TODO: move these to constants
   maxScale: 5,
   isGridDragging: false,
-  offset: { x: 0, y: 0 }
+  offset: { x: 0, y: 0 },
+  ratio: 1 // used to make minimap calculations, it is updated in the Grid component
 }
 
 export const gridReducer = (state = initialState, action: any) => {
@@ -46,6 +48,11 @@ export const gridReducer = (state = initialState, action: any) => {
       return {
         ...state,
         offset: action.payload
+      }
+    case 'SET_GRID_RATIO':
+      return {
+        ...state,
+        ratio: action.payload
       }
     default:
       return state
