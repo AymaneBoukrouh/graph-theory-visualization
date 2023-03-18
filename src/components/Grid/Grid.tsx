@@ -76,7 +76,7 @@ export const Grid = ({ mini = false }: GridProps) => {
           <rect
             x = {miniOffset.x} y = {miniOffset.y}
             width = {miniWidth} height = {miniHeight}
-            fill = "none" stroke = "black" strokeWidth = ".5"
+            fill = "none" stroke = "black" strokeWidth = ".2"
           />
         }
         {
@@ -84,8 +84,15 @@ export const Grid = ({ mini = false }: GridProps) => {
           <rect
             x='0' y='0'
             width={width} height={height}
-            fill="none" stroke="black" strokeWidth=".2"
+            fill="none"
           />
+        }
+        {
+          mini &&
+          <g>
+            <line x1='0' y1='0' x2='0' y2={height} stroke='black' strokeWidth='.2' />
+            <line x1='0' y1={height} x2={width} y2={height} stroke='black' strokeWidth='.2' />
+          </g>
         }
       </svg>
   )
